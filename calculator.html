@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator - Arithmetic & Unit Conversion</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 350px;
+        }
+        .calculator h1 {
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #e4e4e4;
+        }
+        input, button {
+            font-size: 1.2em;
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input {
+            background-color: #444;
+            color: #fff;
+            text-align: right;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .button-row button {
+            width: 48%;
+            margin-right: 4%;
+        }
+        .button-row button:nth-child(2n) {
+            margin-right: 0;
+        }
+        select {
+            background-color: #444;
+            color: #fff;
+            width: 100%;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculator</h1>
+        <input type="text" id="display" disabled>
+        
+        <!-- Arithmetic Buttons -->
+        <div class="button-row">
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('-')">-</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('*')">*</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('/')">/</button>
+        </div>
+
+        <!-- Unit Conversion Section -->
+        <h2>Unit Conversion</h2>
+        <select id="unitType">
+            <option value="length">Length</option>
+            <option value="weight">Weight</option>
+        </select>
+        <div>
+            <input type="number" id="inputValue" placeholder="Enter value">
+            <select id="unitFrom">
+                <option value="meter">Meter</option>
+                <option value="kilometer">Kilometer</option>
+                <option value="mile">Mile</option>
+                <option value="centimeter">Centimeter</option>
+            </select>
+            <span>to</span>
+            <select id="unitTo">
+                <option value="kilometer">Kilometer</option>
+                <option value="mile">Mile</option>
+                <option value="meter">Meter</option>
+                <option value="centimeter">Centimeter</option>
+            </select>
+        </div>
+        <button onclick="convertUnits()">Convert</button>
+        <h3 id="conversionResult"></h3>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function calculateResult() {
+            let display = document.getElementById('display').value;
+            try {
+                document.getElementById('display').value = eval(display);
+            } catch {
+                document.getElementById('display').value = 'Error';
+            }
+        }
+
+        function convertUnits() {
+            const inputValue = parseFloat(document.getElementById('inputValue').value);
+            const unitFrom = document.getElementById('unitFrom').value;
+            const unitTo = document.getElementById('unitTo').value;
+            let result = '';
+
+            if (isNaN(inputValue)) {
+                result = 'Please enter a valid number';
+            } else {
+                if (unitFrom === unitTo) {
+                    result = inputValue + ' ' + unitFrom;
+                } else if (unitFrom === 'meter' && unitTo === 'kilometer') {
+                    result = inputValue / 1000 + ' Kilometers';
+                } else if (unitFrom === 'meter' && unitTo === 'mile') {
+                    result = inputValue / 1609.34 + ' Miles';
+                } else if (unitFrom === 'kilometer' && unitTo === 'meter') {
+                    result = inputValue * 1000 + ' Meters';
+                } else if (unitFrom === 'mile' && unitTo === 'meter') {
+                    result = inputValue * 1609.34 + ' Meters';
+                } else if (unitFrom === 'mile' && unitTo === 'kilometer') {
+                    result = inputValue * 1.60934 + ' Kilometers';
+                } else if (unitFrom === 'centimeter' && unitTo === 'meter') {
+                    result = inputValue / 100 + ' Meters';
+                }
+            }
+
+            document.getElementById('conversionResult').textContent = result;
+        }
+    </script>
+</body>
+  </html>
