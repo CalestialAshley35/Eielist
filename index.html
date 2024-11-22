@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eielist</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #121212;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #29b6f6;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #bbb;
+            margin-top: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .app {
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            text-align: center;
+            width: 180px;
+            height: 180px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .app:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .app a {
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: #29b6f6;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .app a:hover {
+            color: #ff4081;
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            background-color: #29b6f6;
+            color: white;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.3), -4px -4px 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #ff4081;
+            transform: scale(1.05);
+            box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.5), -8px -8px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>Welcome to Eielist</h1>
+
+<div class="app-container">
+    <!-- Google App -->
+    <div class="app">
+        <a href="https://www.google.com" target="_blank">Google</a>
+    </div>
+
+    <!-- PhotoWeb App -->
+    <div class="app">
+        <a href="photoweb.html" target="_blank">PhotoWeb</a>
+    </div>
+
+    <!-- Zoom App -->
+    <div class="app">
+        <a href="zoom.html" target="_blank">Zoom</a>
+    </div>
+
+    <!-- Notepad App -->
+    <div class="app">
+        <a href="notepad.html" target="_blank">Notepad</a>
+    </div>
+</div>
+
+<button onclick="window.location.href='notepad.html'">Open Notepad</button>
+
+</body>
+  </html>
