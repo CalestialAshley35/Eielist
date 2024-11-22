@@ -9,6 +9,8 @@ Eielist is an open-source web-based operating system developed by **Calestial As
 4. **Zoom**: Take super zoomed-in photos.
 5. **Calculator**: A simple calculator for basic arithmetic operations (addition, subtraction, multiplication, and division).
 6. **Reich Editor**: A HTML CSS JS Code Editor.
+7. **Tic Tac Yay**: A Tic Tac Toe Game.
+8. **SpreadHeats**: Spreadsheet Apps
 
 ## Features of the Calculator App:
 - Simple, user-friendly interface.
