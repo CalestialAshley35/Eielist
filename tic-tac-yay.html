@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enhanced Tic Tac Toe</title>
+<style>
+    /* Overall Style */
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #333;
+        color: #fff;
+    }
+
+    /* Title and Options */
+    h1 {
+        font-size: 2em;
+        color: #61dafb;
+    }
+    #gameOptions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0;
+    }
+    .gameMode {
+        padding: 10px 15px;
+        background-color: #61dafb;
+        border: none;
+        color: #333;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+    }
+    .gameMode:hover {
+        background-color: #21a1f1;
+    }
+
+    /* Game Board */
+    #gameContainer {
+        display: grid;
+        grid-template-columns: repeat(3, 100px);
+        grid-gap: 10px;
+        margin-top: 20px;
+    }
+    .tile {
+        width: 100px;
+        height: 100px;
+        background-color: #444;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5em;
+        color: #61dafb;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .tile:hover {
+        background-color: #555;
+    }
+
+    /* Message and Reset Button */
+    #message {
+        font-size: 1.2em;
+        margin-top: 20px;
+        text-align: center;
+    }
+    #resetButton {
+        padding: 10px 20px;
+        margin-top: 15px;
+        background-color: #61dafb;
+        border: none;
+        color: #000;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+    }
+    #resetButton:hover {
+        background-color: #21a1f1;
+    }
+</style>
+</head>
+<body>
+
+<h1>Tic Tac Toe</h1>
+
+<div id="gameOptions">
+    <button class="gameMode" onclick="startGame('friend')">Play with Friend</button>
+    <button class="gameMode" onclick="startGame('AI')">Play with AI</button>
+</div>
+
+<div id="gameContainer">
+    <div class="tile" data-index="0"></div>
+    <div class="tile" data-index="1"></div>
+    <div class="tile" data-index="2"></div>
+    <div class="tile" data-index="3"></div>
+    <div class="tile" data-index="4"></div>
+    <div class="tile" data-index="5"></div>
+    <div class="tile" data-index="6"></div>
+    <div class="tile" data-index="7"></div>
+    <div class="tile" data-index="8"></div>
+</div>
+
+<div id="message">Choose a game mode to start</div>
+<button id="resetButton" onclick="resetGame()">Restart Game</button>
+
+<script>
+    let currentPlayer = "X";
+    let board = Array(9).fill(null);
+    let isGameActive = false;
+    let gameMode = null;
+
+    const tiles = document.querySelectorAll(".tile");
+    const message = document.getElementById("message");
+
+    const winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+        [0, 4, 8], [2, 4, 6]
+    ];
+
+    function startGame(mode) {
+        gameMode = mode;
+        resetGame();
+        isGameActive = true;
+        message.textContent = mode === "friend" ? "Player X's Turn" : "Your Turn (X)";
+    }
+
+    tiles.forEach((tile, index) => {
+        tile.addEventListener("click", () => handleTileClick(index));
+    });
+
+    function handleTileClick(index) {
+        if (board[index] || !isGameActive) return;
+
+        board[index] = currentPlayer;
+        tiles[index].textContent = currentPlayer;
+
+        if (checkWinner()) {
+            message.textContent = `Player ${currentPlayer} Wins! 🎉`;
+            isGameActive = false;
+            return;
+        }
+
+        if (board.every(tile => tile)) {
+            message.textContent = "It's a Draw! 🤝";
+            isGameActive = false;
+            return;
+        }
+
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+        if (gameMode === "friend") {
+            message.textContent = `Player ${currentPlayer}'s Turn`;
+        } else if (gameMode === "AI" && currentPlayer === "O") {
+            setTimeout(() => handleAITurn(), 500);
+        }
+    }
+
+    function handleAITurn() {
+        const emptyIndices = board
+            .map((tile, index) => tile === null ? index : null)
+            .filter(index => index !== null);
+        
+        const randomIndex = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+        board[randomIndex] = "O";
+        tiles[randomIndex].textContent = "O";
+
+        if (checkWinner()) {
+            message.textContent = "AI Wins! 😈";
+            isGameActive = false;
+            return;
+        }
+
+        if (board.every(tile => tile)) {
+            message.textContent = "It's a Draw! 🤝";
+            isGameActive = false;
+            return;
+        }
+
+        currentPlayer = "X";
+        message.textContent = "Your Turn (X)";
+    }
+
+    function checkWinner() {
+        return winningCombinations.some(combination => {
+            return combination.every(index => board[index] === currentPlayer);
+        });
+    }
+
+    function resetGame() {
+        board.fill(null);
+        currentPlayer = "X";
+        isGameActive = true;
+        tiles.forEach(tile => (tile.textContent = ""));
+        message.textContent = gameMode === "friend" ? "Player X's Turn" : "Your Turn (X)";
+    }
+</script>
+
+</body>
+</html>
