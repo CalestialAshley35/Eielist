@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reich Editor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    .editor {
+      display: flex;
+      flex: 1;
+      gap: 10px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .editor textarea {
+      flex: 1;
+      height: 100%;
+      resize: none;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    .preview {
+      flex: 2;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Reich Editor</h1>
+    <p>Write and run your HTML, CSS, and JavaScript in real-time.</p>
+  </header>
+  <div class="editor">
+    <textarea id="html" placeholder="Write HTML here..."></textarea>
+    <textarea id="css" placeholder="Write CSS here..."></textarea>
+    <textarea id="js" placeholder="Write JavaScript here..."></textarea>
+  </div>
+  <div class="preview">
+    <iframe id="preview"></iframe>
+  </div>
+  <script>
+    // Elements
+    const htmlEditor = document.getElementById('html');
+    const cssEditor = document.getElementById('css');
+    const jsEditor = document.getElementById('js');
+    const previewFrame = document.getElementById('preview');
+
+    // Update Preview
+    function updatePreview() {
+      const html = htmlEditor.value;
+      const css = `<style>${cssEditor.value}</style>`;
+      const js = `<script>${jsEditor.value}<\/script>`;
+      
+      const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      previewDoc.open();
+      previewDoc.write(html + css + js);
+      previewDoc.close();
+    }
+
+    // Event Listeners for Live Updates
+    [htmlEditor, cssEditor, jsEditor].forEach(editor => {
+      editor.addEventListener('input', updatePreview);
+    });
+
+    // Initial Preview Load
+    updatePreview();
+  </script>
+</body>
+</html>
