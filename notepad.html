@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad</title>
+    <style>
+        body {
+            background: #121212;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #29b6f6;
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 300px;
+            background-color: #1e1e1e;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: #fff;
+            padding: 15px;
+            font-size: 1rem;
+            resize: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            background-color: #29b6f6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0288d1;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Notepad</h1>
+
+<textarea id="textArea" placeholder="Type your text here..."></textarea>
+
+<button onclick="downloadText()">Download as .reich</button>
+
+<script>
+    function downloadText() {
+        var text = document.getElementById("textArea").value;
+        var blob = new Blob([text], { type: 'text/plain' });
+        var link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "note.reich";  // Save as .reich file
+        link.click();
+    }
+</script>
+
+</body>
+</html>
