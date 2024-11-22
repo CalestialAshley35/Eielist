@@ -1,6 +1,6 @@
 # Eielist OS
 
-Eielist is an open-source operating system developed by **Calestial Ashley**. It features a collection of apps designed to provide basic functionality with a sleek interface.
+Eielist is an open-source web-based operating system developed by **Calestial Ashley**. It features a collection of apps designed to provide basic functionality with a sleek interface.
 
 ## Apps Included:
 1. **Google**: A built-in browser.
@@ -8,6 +8,7 @@ Eielist is an open-source operating system developed by **Calestial Ashley**. It
 3. **PhotoWeb**: Take photos, switch between back/front cameras, and view them in the gallery.
 4. **Zoom**: Take super zoomed-in photos.
 5. **Calculator**: A simple calculator for basic arithmetic operations (addition, subtraction, multiplication, and division).
+6. **Reich Editor**: A HTML CSS JS Code Editor.
 
 ## Features of the Calculator App:
 - Simple, user-friendly interface.
